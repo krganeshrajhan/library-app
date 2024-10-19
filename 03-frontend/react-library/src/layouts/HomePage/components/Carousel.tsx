@@ -57,9 +57,11 @@ export const Carousel = () => {
     }
 
     return (
-        <div className='container md-5' style={{ height: 550 }}>
+        <div className='container mt-5' style={{ height: 550 }}>
             <h3>Find your next "I stayed up too late reading" book.</h3>
             <div id='carouselExampleControls' className='carousel carousel-dark slide mt-5 d-none d-lg-block' data-bs-interval='false'>
+
+                {/* Desktop */}
                 <div className='carousel-inner'>
                     <div className='carousel-item active'>
                         <div className='row d-flex justify-content-center align-items-center'>
@@ -93,6 +95,7 @@ export const Carousel = () => {
                         <span className='visually-hidden'>Next</span>
                     </button>
                 </div>
+                {/* Mobile */}
                 <div className='d-lg-none mt-3'>
                     <div className='row d-flex justify-content-center align-items-center'>
                         <ReturnBook book={books[7]} key={books[7].id} />
