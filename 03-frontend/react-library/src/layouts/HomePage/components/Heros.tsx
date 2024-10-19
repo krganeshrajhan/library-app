@@ -54,6 +54,19 @@ export const Heros = () => {
                         </div>
                     </div>
                 </div>
+                <div className="m-2">
+                    <div className="col-image-right"></div>
+                    <div className="mt-2">
+                        <h1>Our collection is always changing!</h1>
+                        <p className="lead">
+                            Try to check in daily as our collection is always changing!
+                            We work non-stop to provide the most accurate book selection possible
+                            for our Library students! We are diligent about our book selection
+                            and our book selection and our books are always going to be our
+                            top priority.
+                        </p>
+                    </div>
+                </div>
             </div>
 
         </div>
