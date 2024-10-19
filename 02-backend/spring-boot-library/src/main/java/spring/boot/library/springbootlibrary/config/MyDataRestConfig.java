@@ -10,6 +10,8 @@ import spring.boot.library.springbootlibrary.entity.Book;
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
 
+    private String theAllowedOrigins = "http://localhost:3000";
+
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration configuration, CorsRegistry corsRegistry) {
 
@@ -21,6 +23,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
 
+        corsRegistry.addMapping(configuration.getBasePath() + "/**").allowedOrigins(theAllowedOrigins);
     }
 
 }
