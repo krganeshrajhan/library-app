@@ -1,6 +1,5 @@
 package spring.boot.library.springbootlibrary.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,9 +11,6 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "id", insertable = false, updatable = false)
-    private Long uid;
 
     @Column(name = "title")
     private String title;
