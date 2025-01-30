@@ -48,7 +48,7 @@ export const SearchBooksPage = () => {
 
             for (const key in responseData) {
                 loadedBooks.push({
-                    id: responseData[key].uid,
+                    id: responseData[key].id,
                     title: responseData[key].title,
                     author: responseData[key].author,
                     description: responseData[key].description,
