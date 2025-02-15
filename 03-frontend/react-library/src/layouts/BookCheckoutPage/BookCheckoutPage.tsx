@@ -17,6 +17,8 @@ export const BookCheckoutPage = () => {
     const [isLoadingReview, setIsLoadingReview] = useState(true);
 
     const bookId = (window.location.pathname).split('/')[2];
+    console.log(window.location.pathname);
+    console.log(bookId);
 
     useEffect(() => {
         const fetchBook = async () => {
