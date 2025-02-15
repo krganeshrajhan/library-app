@@ -1,10 +1,6 @@
 package spring.boot.library.springbootlibrary.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import spring.boot.library.springbootlibrary.entity.Book;
 import spring.boot.library.springbootlibrary.service.BookService;
@@ -24,6 +20,12 @@ public class BookController {
     public Book checkoutBook(@RequestParam Long bookId) throws Exception {
         String userEmail = "testuser@gmail.com";
         return bookService.checkoutBook(userEmail, bookId);
+    }
+
+    @GetMapping("/secure/ischeckedout/byuser")
+    public Boolean checkoutBookByUser(@RequestParam Long bookId) {
+        String userEmail = "testuser@gmail.com";
+        return bookService.checkoutBookByUser(userEmail, bookId);
     }
 
 }
