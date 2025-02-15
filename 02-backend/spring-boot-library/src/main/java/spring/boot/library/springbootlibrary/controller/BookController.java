@@ -28,4 +28,10 @@ public class BookController {
         return bookService.checkoutBookByUser(userEmail, bookId);
     }
 
+    @GetMapping("/secure/currentloans/count")
+    public int currentLoansCount() {
+        String userEmail = "testuser@gmail.com";
+        return bookService.currentLoansCount(userEmail);
+    }
+
 }
