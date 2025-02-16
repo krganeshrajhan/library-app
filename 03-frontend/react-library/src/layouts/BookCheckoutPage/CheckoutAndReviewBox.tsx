@@ -3,7 +3,8 @@ import BookModel from "../../models/BookModel";
 import { useOktaAuth } from "@okta/okta-react";
 
 export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean,
-    currentLoansCount: number, isAuthenticated: any, isCheckedOut: boolean }> = (props) => {
+    currentLoansCount: number, isAuthenticated: any, isCheckedOut: boolean,
+    checkoutBook: any }> = (props) => {
 
     const book = props.book;
     const mobile = props.mobile;
@@ -12,7 +13,7 @@ export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobil
     function buttonRender() {
         if (props.isAuthenticated) {
             if (!props.isCheckedOut && props.currentLoansCount < 5) {
-                return (<button className='btn btn-success btn-lg'>Checkout</button>)
+                return (<button onClick={() => props.checkoutBook()} className='btn btn-success btn-lg'>Checkout</button>)
             } else if (props.isCheckedOut) {
                 return (<p><b>Book checked out. Enjoy!</b></p>)
             } else if (!props.isCheckedOut) {
