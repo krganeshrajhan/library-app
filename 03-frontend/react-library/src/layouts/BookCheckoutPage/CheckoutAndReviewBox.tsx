@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import BookModel from "../../models/BookModel";
 import { useOktaAuth } from "@okta/okta-react";
 
-export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean }> = (props) => {
+export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean,
+    currentLoansCount: number }> = (props) => {
 
     const book = props.book;
     const mobile = props.mobile;
@@ -13,7 +14,7 @@ export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobil
             <div className="card-body container">
                 <div className="mt-3">
                     <p>
-                        <b>0/5 </b>
+                        <b>{props.currentLoansCount}/5 </b>
                         books checked out
                     </p>
                     <hr />

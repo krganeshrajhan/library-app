@@ -5,8 +5,11 @@ import { StarsReview } from "../Utils/StarsReview";
 import { CheckoutAndReviewBox } from "./CheckoutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
 import { LatestReviews } from "./LatestReviews";
+import { useOktaAuth } from "@okta/okta-react";
 
 export const BookCheckoutPage = () => {
+
+    const { authState } = useOktaAuth();
 
     const [book, setBook] = useState<BookModel>();
     const [isLoadingBook, setIsLoadingBook] = useState(true);
@@ -16,7 +19,38 @@ export const BookCheckoutPage = () => {
     const [totalStars, setTotalStars] = useState(0);
     const [isLoadingReview, setIsLoadingReview] = useState(true);
 
+    // Loans Count State
+    const [currentLoansCount, setCurrentLoansCount] = useState(0);
+    const [isLoadingLoansCount, setIsLoadingLoansCount] = useState(true);
+
     const bookId = (window.location.pathname).split('/')[2];
+
+    useEffect(() => {
+        const fetchUserCurrentLoansCount = async () => {
+            if (authState && authState.isAuthenticated) {
+                const url = `http://localhost:8081/api/books/secure/currentloans/count`;
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${authState.accessToken?.accessToken}`
+                }
+            };
+            const currentLoansCountResponse = await fetch(url, requestOptions);
+            if (!currentLoansCountResponse.ok) {
+                throw new Error('Something went wrong!');
+            }
+            const currentLoansCountJson = await currentLoansCountResponse.json();
+            setCurrentLoansCount(currentLoansCountJson);
+        }
+        setIsLoadingLoansCount(false);
+    }
+
+    fetchUserCurrentLoansCount().catch((error: any) => {
+        setIsLoadingLoansCount(false);
+        setHttpError(error.message);
+    })
+    }, [authState]);
 
     useEffect(() => {
         const fetchBook = async () => {
@@ -95,7 +129,9 @@ export const BookCheckoutPage = () => {
         })
     }, [bookId]);
 
-    if (isLoadingBook) {
+
+
+    if (isLoadingBook || isLoadingReview || isLoadingLoansCount) {
         return (
             <SpinnerLoading />
         )
@@ -128,7 +164,7 @@ export const BookCheckoutPage = () => {
                             <StarsReview rating={totalStars} size={32} />
                         </div>
                     </div>
-                    <CheckoutAndReviewBox book={book} mobile={false} />
+                    <CheckoutAndReviewBox book={book} mobile={false} currentLoansCount={currentLoansCount}/>
                 </div>
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={false} />
@@ -149,7 +185,7 @@ export const BookCheckoutPage = () => {
                         <StarsReview rating={totalStars} size={32} />
                     </div>
                 </div>
-                <CheckoutAndReviewBox book={book} mobile={true} />
+                <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount} />
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={true} />
             </div>
