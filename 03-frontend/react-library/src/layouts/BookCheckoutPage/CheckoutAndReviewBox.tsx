@@ -3,11 +3,24 @@ import BookModel from "../../models/BookModel";
 import { useOktaAuth } from "@okta/okta-react";
 
 export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean,
-    currentLoansCount: number }> = (props) => {
+    currentLoansCount: number, isAuthenticated: any, isCheckedOut: boolean }> = (props) => {
 
     const book = props.book;
     const mobile = props.mobile;
     const { authState } = useOktaAuth();
+
+    function buttonRender() {
+        if (props.isAuthenticated) {
+            if (!props.isCheckedOut && props.currentLoansCount < 5) {
+                return (<button className='btn btn-success btn-lg'>Checkout</button>)
+            } else if (props.isCheckedOut) {
+                return (<p><b>Book checked out. Enjoy!</b></p>)
+            } else if (!props.isCheckedOut) {
+                return (<p className="text-danger">Too many books checked out.</p>)
+            }
+        }
+        return (<Link to={'/login'} className="btn btn-success btn-lg">Sign in</Link>)
+    }
 
     return (
         <div className={mobile ? 'card d-flex mt-5' : 'card col-3 container d-flex mb-5'}>
@@ -38,11 +51,7 @@ export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobil
                         </p>
                     </div>
                 </div>
-                {!authState?.isAuthenticated ?
-                    <Link to='/#' className="btn btn-success btn-lg">Sign in</Link>
-                    :
-                    <Link to={`/checkout/${props.book?.id}`} className="btn btn-success btn-lg">Checkout</Link>
-                }
+                {buttonRender()}
                     <hr />
                     <p className="mt-3">
                         This number can change until placing order has been complete.
