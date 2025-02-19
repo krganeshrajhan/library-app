@@ -4,7 +4,7 @@ import { useOktaAuth } from "@okta/okta-react";
 
 export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean,
     currentLoansCount: number, isAuthenticated: any, isCheckedOut: boolean,
-    checkoutBook: any }> = (props) => {
+    checkoutBook: any, isReviewLeft: boolean }> = (props) => {
 
     const book = props.book;
     const mobile = props.mobile;
@@ -21,6 +21,25 @@ export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobil
             }
         }
         return (<Link to={'/login'} className="btn btn-success btn-lg">Sign in</Link>)
+    }
+
+    function reviewRender() {
+        if (props.isAuthenticated && !props.isReviewLeft) {
+            return (
+            <p>
+                Leave a review component here.
+            </p>
+            )
+        } else if (props.isAuthenticated && props.isReviewLeft) {
+            return (
+            <p>
+                <b>
+                    Thank you for your review!
+                </b>
+            </p>
+            )
+        }
+        return (<p>Sign in to leave a review.</p>)
     }
 
     return (
@@ -53,17 +72,11 @@ export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobil
                     </div>
                 </div>
                 {buttonRender()}
-                    <hr />
-                    <p className="mt-3">
-                        This number can change until placing order has been complete.
-                    </p>
-                    {!authState?.isAuthenticated ?
-                    <p>
-                        Sign in to be able to leave a review.
-                    </p>
-                    :
-                    <></>
-                }
+                <hr />
+                <p className="mt-3">
+                    This number can change until placing order has been complete.
+                </p>
+                {reviewRender()}
             </div>
         </div>
     )
