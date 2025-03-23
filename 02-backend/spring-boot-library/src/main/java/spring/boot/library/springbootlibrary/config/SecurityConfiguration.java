@@ -22,7 +22,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(configurer ->
                 configurer
                         .requestMatchers("/api/books/secure/**").authenticated()
-                        .requestMatchers("/api/books/**", "/api/reviews/**").permitAll())
+                        .requestMatchers("/api/books/**", "/api/reviews/**", "/api/histories/**").permitAll())
                 .oauth2ResourceServer(oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(customJwtAuthenticationConverter())));
 
         //Add cors
