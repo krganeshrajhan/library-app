@@ -67,36 +67,34 @@ export const HistoryPage = () => {
                 <h5>Recent History:</h5>
 
                 {histories.map(history => (
-                    <div key={history.id}>
-                        <div className='card mt-3 shadow p-3 mb-3 bg-body rounded'>
-                            <div className='row g-0'>
-                                <div className='col-md-2'>
-                                    <div className='d-none d-lg-block'>
-                                        {history.img ?
-                                            <img src={history.img} width='123' height='196' alt='Book' />
-                                            :
-                                            <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')}
-                                                width='123' height='196' alt='Default' />
-                                        }
-                                    </div>
-                                    <div className='d-lg-none d-flex justify-content-center align-items-center' >
-                                        {history.img ?
-                                            <img src={history.img} width='123' height='196' alt='Book' />
-                                            :
-                                            <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')}
-                                                width='123' height='196' alt='Default' />
-                                        }
-                                    </div>
+                    <div className='card mt-3 shadow p-3 mb-3 bg-body rounded' key={history.id}>
+                        <div className='row g-0'>
+                            <div className='col-md-2'>
+                                <div className='d-none d-lg-block'>
+                                    {history.img ?
+                                        <img src={history.img} width='123' height='196' alt='Book' />
+                                        :
+                                        <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')}
+                                            width='123' height='196' alt='Default' />
+                                    }
                                 </div>
-                                <div className='col'>
-                                    <div className='card-body'>
-                                        <h5 className='card-title'> {history.author} </h5>
-                                        <h4>{history.title}</h4>
-                                        <p className='card-text'>{history.description}</p>
-                                        <hr/>
-                                        <p className='card-text'> Checked out on: {history.checkoutDate}</p>
-                                        <p className='card-text'> Returned on: {history.returnedDate}</p>
-                                    </div>
+                                <div className='d-lg-none d-flex justify-content-center align-items-center' >
+                                    {history.img ?
+                                        <img src={history.img} width='123' height='196' alt='Book' />
+                                        :
+                                        <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')}
+                                            width='123' height='196' alt='Default' />
+                                    }
+                                </div>
+                            </div>
+                            <div className='col'>
+                                <div className='card-body'>
+                                    <h5 className='card-title'> {history.author} </h5>
+                                    <h4>{history.title}</h4>
+                                    <p className='card-text'>{history.description}</p>
+                                    <hr/>
+                                    <p className='card-text'> Checked out on: {history.checkoutDate}</p>
+                                    <p className='card-text'> Returned on: {history.returnedDate}</p>
                                 </div>
                             </div>
                         </div>

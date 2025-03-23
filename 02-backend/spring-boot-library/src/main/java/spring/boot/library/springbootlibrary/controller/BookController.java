@@ -9,12 +9,13 @@ import spring.boot.library.springbootlibrary.utils.ExtractJWT;
 
 import java.util.List;
 
+import static spring.boot.library.springbootlibrary.utils.Constants.TOKEN_EXTRACTION;
+
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
 
-    public static final String TOKEN_EXTRACTION = "\"sub\"";
     private BookService bookService;
 
     public BookController(BookService bookService) {
