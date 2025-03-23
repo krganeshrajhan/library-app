@@ -1,5 +1,6 @@
 import { useOktaAuth } from "@okta/okta-react";
 import { useState } from "react";
+import MessageModel from "../../../models/MessageModel";
 
 export const PostNewMessage = () => {
 
@@ -9,13 +10,37 @@ export const PostNewMessage = () => {
     const [displayWarning, setDisplayWarning] = useState(false);
     const [displaySuccess, setDisplaySuccess] = useState(false);
 
+    async function submitNewQuestion() {
+        const url = `http://localhost:8081/api/messages/secure/add/message`;
+        if (authState?.isAuthenticated && title !== '' && question != '') {
+            const messageRequestModel: MessageModel = new MessageModel(title, question);
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${authState?.accessToken?.accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(messageRequestModel)
+            };
+
+            const submitNewQuestionResponse = await fetch(url, requestOptions);
+            if (!submitNewQuestionResponse.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            setTitle('');
+            setQuestion('');
+            setDisplayWarning(false);
+            setDisplaySuccess(true);
+        } else {
+            setDisplayWarning(true);
+            setDisplaySuccess(false);
+        }
+    }
+
     return (
         <div className='card mt-3'>
-            {displaySuccess && 
-                <div className='alert alert-success' role='alert'>
-                    Question added successfully
-                </div>
-            }
+            
             <div className='card-header'>
                 Ask question to Luv 2 Read Admin
             </div>
@@ -24,6 +49,11 @@ export const PostNewMessage = () => {
                     {displayWarning &&
                         <div className='alert alert-danger' role='alert'>
                             All fields must be filled out
+                        </div>
+                    }
+                    {displaySuccess && 
+                        <div className='alert alert-success' role='alert'>
+                            Question added successfully
                         </div>
                     }
                     <div className='mb-3'>
@@ -41,7 +71,7 @@ export const PostNewMessage = () => {
                             placeholder='Question' onChange={e => setQuestion(e.target.value)} value={question} />
                     </div>
                     <div>
-                        <button type='button' className='btn btn-primary mt-3'>
+                        <button type='button' className='btn btn-primary mt-3' onClick={submitNewQuestion}>
                             Submit Question
                         </button>
                     </div>
