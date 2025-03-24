@@ -12,7 +12,7 @@ export const Messages = () => {
 
     const [messages, setMessages] = useState<MessageModel[]>([]);
 
-    const [messagesPerPage, setMessagesPerPage] = useState(5);
+    const [messagesPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
 
@@ -39,7 +39,7 @@ export const Messages = () => {
         }
         fetchUserMessages().catch((error: any) => {
             setIsLoadingMessages(false);
-            setHttpError(error.message);
+            setHttpError(error.messages);
         })
         window.scrollTo(0, 0);
     }, [authState, currentPage]);
@@ -66,8 +66,8 @@ export const Messages = () => {
         <div className='mt-2'>
             {messages.length > 0 ?
                 <>
-                    <h5>Currents Q/A: </h5>
-                    {messages.map(message => {
+                    <h5>Current Q/A: </h5>
+                    {messages.map(message => (
                         <div key={message.id}>
                             <div className='card mt-2 shadow p-3 bg-body rounded'>
                                 <h5>Case #{message.id}: {message.title}</h5>
@@ -87,7 +87,7 @@ export const Messages = () => {
                                 </div>
                             </div>
                         </div>
-                    })}
+                    ))}
                 </>
                 :
                 <h5>All questions you submit will be shown here</h5>

@@ -12,7 +12,7 @@ export const MessagesPage = () => {
                 <nav>
                     <div className='nav nav-tabs' id='nav-tab' role='tablist'>
                         <button onClick={() => setMessagesClick(false)} className='nav-link active'
-                            id='nav-send-message-tab' data-bs-toggle='tab' data-bs-target='#nav-send-messge'
+                            id='nav-send-message-tab' data-bs-toggle='tab' data-bs-target='#nav-send-message'
                             type='button' role='tab' aria-controls='nav-send-message' aria-selected='true'>
                             Submit Question
                         </button>
