@@ -2,6 +2,7 @@ import { useOktaAuth } from "@okta/okta-react"
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { AdminMessages } from "./components/AdminMessages";
+import { AddNewBook } from "./components/AddNewBook";
 
 export const ManageLibraryPage = () => {
 
@@ -55,7 +56,7 @@ export const ManageLibraryPage = () => {
                 <div className='tab-content' id='nav-tabContent'>
                     <div className='tab-panel fade show active' id='nav-add-book' role='tabpanel'
                         aria-labelledby='nav-add-book-tab'>
-                            Add new book
+                            <AddNewBook />
                     </div>
                     <div className='tab-panel fade' id='nav-quantity' role='tabpanel' 
                         aria-labelledby='nav-quantity-tab'>
