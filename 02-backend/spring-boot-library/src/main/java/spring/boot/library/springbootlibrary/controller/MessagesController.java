@@ -2,6 +2,7 @@ package spring.boot.library.springbootlibrary.controller;
 
 import org.springframework.web.bind.annotation.*;
 import spring.boot.library.springbootlibrary.entity.Message;
+import spring.boot.library.springbootlibrary.requestmodels.AdminQuestionRequest;
 import spring.boot.library.springbootlibrary.service.MessagesService;
 import spring.boot.library.springbootlibrary.utils.ExtractJWT;
 
@@ -24,6 +25,17 @@ public class MessagesController {
                             @RequestBody Message messageRequest) {
         String userEmail = ExtractJWT.payloadJWTExtraction(token, TOKEN_EXTRACTION);
         messagesService.postMessage(messageRequest, userEmail);
+    }
+
+    @PutMapping("/secure/admin/message")
+    public void putMessage(@RequestHeader(value="Authorization") String token,
+                           @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, TOKEN_EXTRACTION);
+        String admin = ExtractJWT.payloadJWTExtraction(token, "\"userType\"");
+        if (admin == null || !admin.equals("admin")) {
+            throw new Exception("Administration page only.");
+        }
+        messagesService.putMessage(adminQuestionRequest, userEmail);
     }
 
 }
