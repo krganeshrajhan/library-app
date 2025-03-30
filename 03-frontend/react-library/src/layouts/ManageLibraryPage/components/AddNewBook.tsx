@@ -102,15 +102,15 @@ export const AddNewBook = () => {
                             </div>
                             <div className='col-md-3 mb-3'>
                                 <label className='form-label'> Category</label>
-                                <button className='form-control btn btn-secondary' type='button'
+                                <button className='form-control btn btn-secondary dropdown-toggle' type='button'
                                   id='dropdownMenuButton1' data-bs-toggle='dropdown' aria-expanded='false'>
                                     {category}
                                 </button> 
-                                <ul id='addNewBook' className='dropdown-menu' aria-labelledby='dropdownMenuButton1'>
-                                    <li><a onClick={() => categoryField('FE')} className='dropdown-item'/>Front End</li>
-                                    <li><a onClick={() => categoryField('BE')} className='dropdown-item'/>Back End</li>
-                                    <li><a onClick={() => categoryField('Data')} className='dropdown-item'/>Data</li>
-                                    <li><a onClick={() => categoryField('DevOps')} className='dropdown-item'/>DevOps</li>                                    
+                                <ul id='addNewBookId' className='dropdown-menu' aria-labelledby='dropdownMenuButton1'>
+                                    <li><a onClick={() => categoryField('FE')} className='dropdown-item'>Front End</a></li>
+                                    <li><a onClick={() => categoryField('BE')} className='dropdown-item'>Back End</a></li>
+                                    <li><a onClick={() => categoryField('Data')} className='dropdown-item'>Data</a></li>
+                                    <li><a onClick={() => categoryField('DevOps')} className='dropdown-item'>DevOps</a></li>
                                 </ul>
                             </div>
                         </div>
