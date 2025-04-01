@@ -7,7 +7,7 @@ import spring.boot.library.springbootlibrary.service.AdminService;
 import spring.boot.library.springbootlibrary.utils.Constants;
 import spring.boot.library.springbootlibrary.utils.ExtractJWT;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("https://localhost:3000")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {

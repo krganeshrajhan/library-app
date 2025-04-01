@@ -8,7 +8,7 @@ import spring.boot.library.springbootlibrary.utils.ExtractJWT;
 
 import static spring.boot.library.springbootlibrary.utils.Constants.TOKEN_EXTRACTION_EMAIL;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("https://localhost:3000")
 @RestController
 @RequestMapping("/api/messages")
 public class MessagesController {

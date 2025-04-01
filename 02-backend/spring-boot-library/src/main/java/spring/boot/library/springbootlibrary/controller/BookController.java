@@ -11,7 +11,7 @@ import java.util.List;
 
 import static spring.boot.library.springbootlibrary.utils.Constants.TOKEN_EXTRACTION_EMAIL;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("https://localhost:3000")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
