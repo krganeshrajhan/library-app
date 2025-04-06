@@ -22,9 +22,10 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(configurer ->
                 configurer
                         .requestMatchers("/api/books/secure/**", "/api/reviews/secure/**",
-                                "/api/messages/secure/**", "/api/admin/secure/**").authenticated()
+                                "/api/messages/secure/**", "/api/admin/secure/**",
+                                "/api/payment/secure/**").authenticated()
                         .requestMatchers("/api/books/**", "/api/reviews/**", "/api/histories/**",
-                                "/api/messages/**","/error").permitAll())
+                                "/api/messages/**", "/api/payments/**", "/error").permitAll())
                 .oauth2ResourceServer(oauth -> oauth.jwt(jwt ->
                         jwt.jwtAuthenticationConverter(customJwtAuthenticationConverter())));
 

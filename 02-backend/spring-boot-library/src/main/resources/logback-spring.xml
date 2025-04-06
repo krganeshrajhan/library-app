@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOGS" value="./logs" />
+
+    <!-- Console Appender -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Regular Rolling File Appender -->
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/app.log</file>
+        <encoder>
+            <pattern>%d %p %C{1} [%t] %m%n</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/archived/app-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>1GB</totalSizeCap>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Error Log Appender -->
+    <appender name="ErrorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/error.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/archived/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>1GB</totalSizeCap>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+
+        <!-- Only log ERROR level and above -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <!-- LOG everything at INFO level -->
+    <root level="info">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+        <appender-ref ref="ErrorFile" />
+    </root>
+
+    <!-- LOG "com.myapp*" at TRACE level -->
+    <logger name="com.myapp" level="trace" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+        <appender-ref ref="ErrorFile" />
+    </logger>
+
+    <!-- Security web -->
+    <logger name="org.springframework.web" level="debug" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+        <appender-ref ref="ErrorFile" />
+    </logger>
+
+    <!-- Security logging -->
+    <logger name="org.springframework.security" level="debug" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+        <appender-ref ref="ErrorFile" />
+    </logger>
+</configuration>

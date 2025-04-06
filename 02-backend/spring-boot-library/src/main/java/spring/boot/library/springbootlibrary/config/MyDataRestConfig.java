@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import spring.boot.library.springbootlibrary.entity.Book;
 import spring.boot.library.springbootlibrary.entity.Message;
+import spring.boot.library.springbootlibrary.entity.Payment;
 import spring.boot.library.springbootlibrary.entity.Review;
 
 @Configuration
@@ -21,12 +22,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH};
 
 
-        configuration.exposeIdsFor(Book.class, Review.class, Message.class);
+        configuration.exposeIdsFor(Book.class, Review.class, Message.class, Payment.class);
 
         // disable HTTP methods for Book: PUT, POST, DELETE and PATCH
         disableHttpMethods(Book.class, configuration, theUnsupportedActions);
-
         disableHttpMethods(Review.class, configuration, theUnsupportedActions);
+        disableHttpMethods(Payment.class, configuration, theUnsupportedActions);
 
         corsRegistry.addMapping(configuration.getBasePath() + "/**").allowedOrigins(theAllowedOrigins);
     }
